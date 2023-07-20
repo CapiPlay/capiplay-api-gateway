@@ -1,4 +1,4 @@
-package br.senai.sc.capiplayapigateway.security;
+package br.senai.sc.capiplayapigateway.utils;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.exceptions.JWTVerificationException;
@@ -14,18 +14,16 @@ import static com.auth0.jwt.algorithms.Algorithm.HMAC256;
 @Service
 public class TokenService {
 
-    @Value("${secret.key}")
-    private String secret;
-
-    public String validToken(String token){
+    public Boolean validToken(String token){
         try {
-            return JWT.require(HMAC256(secret))
+            JWT.require(HMAC256("capiplay"))
                     .withIssuer("capiplay")
                     .build()
-                    .verify(token)
-                    .getSubject();
+                    .verify(token);
+            return true;
         } catch (JWTVerificationException a) {
-            return "";
+            a.printStackTrace();
+            return false;
         }
     }
 
