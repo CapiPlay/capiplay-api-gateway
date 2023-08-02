@@ -24,7 +24,6 @@ import java.util.Set;
 @Order(0)
 public class JWTFilter implements GatewayFilter, Ordered {
 
-
     private final TokenService tokenService = new TokenService();
 
     private final List<String> rotasPublicas = new ArrayList<>();
@@ -51,7 +50,12 @@ public class JWTFilter implements GatewayFilter, Ordered {
         }
         String token = authHeader.replace("Bearer ", "");
         if (tokenService.validToken(token)) {
-            return chain.filter(exchange);
+            ServerHttpRequest newRequest = request.mutate()
+                    .header("usuarioId", tokenService.getId(token))
+                    .build();
+
+            // Continuar o encadeamento de filtros com o novo ServerHttpRequest
+            return chain.filter(exchange.mutate().request(newRequest).build());
         }
         response.setStatusCode(HttpStatus.UNAUTHORIZED);
         return response.setComplete();

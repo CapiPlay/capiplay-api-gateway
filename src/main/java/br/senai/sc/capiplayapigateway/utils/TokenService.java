@@ -2,6 +2,7 @@ package br.senai.sc.capiplayapigateway.utils;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.exceptions.JWTVerificationException;
+import com.auth0.jwt.interfaces.Claim;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -25,6 +26,10 @@ public class TokenService {
             a.printStackTrace();
             return false;
         }
+    }
+
+    public String getId(String token) {
+        return JWT.decode(token).getClaims().get("usuarioId").toString();
     }
 
 
