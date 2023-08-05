@@ -3,6 +3,7 @@ package br.senai.sc.capiplayapigateway.filter;
 import org.springframework.cloud.gateway.filter.GatewayFilter;
 import org.springframework.cloud.gateway.filter.factory.AbstractGatewayFilterFactory;
 import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 @Component
 public class JWTFilterFactory extends AbstractGatewayFilterFactory<JWTFilterFactory.Config> {

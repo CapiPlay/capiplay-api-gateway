@@ -14,6 +14,7 @@ import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.http.server.reactive.ServerHttpResponse;
 import org.springframework.stereotype.Component;
 import org.springframework.util.AntPathMatcher;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
 
@@ -45,6 +46,7 @@ public class JWTFilter implements GatewayFilter, Ordered {
         ServerHttpRequest request =  exchange.getRequest();
         ServerHttpResponse response = exchange.getResponse();
 
+
         boolean isPublicRoute = rotasPublicas.stream()
                 .anyMatch(pattern -> pathMatcher.match(pattern, request.getPath().toString()));
 
@@ -52,6 +54,7 @@ public class JWTFilter implements GatewayFilter, Ordered {
         if (isPublicRoute){
             return chain.filter(exchange);
         }
+      
 
         var authHeader = request.getHeaders().getFirst("Authorization");
         if (authHeader == null) {
