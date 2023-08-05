@@ -38,7 +38,7 @@ public class JWTFilter implements GatewayFilter, Ordered {
     public JWTFilter() {
         rotasPublicas.add(Pattern.compile("^/api/usuario/login$"));
         rotasPublicas.add(Pattern.compile("^/api/usuario/cadastro$"));
-        rotasPublicas.add(Pattern.compile("^api/video/buscar-completo.*$"));
+        rotasPublicas.add(Pattern.compile("^/api/video/buscar-completo/.*$"));
 
     }
 
