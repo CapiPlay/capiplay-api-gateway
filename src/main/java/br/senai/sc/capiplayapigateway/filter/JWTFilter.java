@@ -6,19 +6,20 @@ import org.springframework.cloud.gateway.filter.GatewayFilter;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpRequest;
 import org.springframework.http.HttpStatus;
 
 import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.http.server.reactive.ServerHttpResponse;
 import org.springframework.stereotype.Component;
+import org.springframework.util.AntPathMatcher;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
 
 import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
+import java.util.regex.Pattern;
 
 @Component
 @Order(0)
@@ -26,12 +27,17 @@ public class JWTFilter implements GatewayFilter, Ordered {
 
     private final TokenService tokenService = new TokenService();
 
+//    private RotasPublicas rotas = new RotasPublicas();
+
     private final List<String> rotasPublicas = new ArrayList<>();
+
+    private final AntPathMatcher pathMatcher = new AntPathMatcher();
 
 
     public JWTFilter() {
         rotasPublicas.add("/api/usuario/login");
         rotasPublicas.add("/api/usuario/cadastro");
+        rotasPublicas.add("api/video/buscar-todos/*");
     }
 
     @Override
@@ -39,7 +45,11 @@ public class JWTFilter implements GatewayFilter, Ordered {
         ServerHttpRequest request =  exchange.getRequest();
         ServerHttpResponse response = exchange.getResponse();
 
-        if (rotasPublicas.contains(request.getPath().toString())){
+        boolean isPublicRoute = rotasPublicas.stream()
+                .anyMatch(pattern -> pathMatcher.match(pattern, request.getPath().toString()));
+
+
+        if (isPublicRoute){
             return chain.filter(exchange);
         }
 
