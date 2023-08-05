@@ -30,15 +30,16 @@ public class JWTFilter implements GatewayFilter, Ordered {
 
 //    private RotasPublicas rotas = new RotasPublicas();
 
-    private final List<String> rotasPublicas = new ArrayList<>();
+    private final List<Pattern> rotasPublicas = new ArrayList<>();
 
     private final AntPathMatcher pathMatcher = new AntPathMatcher();
 
 
     public JWTFilter() {
-        rotasPublicas.add("/api/usuario/login");
-        rotasPublicas.add("/api/usuario/cadastro");
-        rotasPublicas.add("api/video/buscar-todos/*");
+        rotasPublicas.add(Pattern.compile("^/api/usuario/login$"));
+        rotasPublicas.add(Pattern.compile("^/api/usuario/cadastro$"));
+        rotasPublicas.add(Pattern.compile("^api/video/buscar-completo.*$"));
+
     }
 
     @Override
@@ -48,7 +49,7 @@ public class JWTFilter implements GatewayFilter, Ordered {
 
 
         boolean isPublicRoute = rotasPublicas.stream()
-                .anyMatch(pattern -> pathMatcher.match(pattern, request.getPath().toString()));
+                .anyMatch(pattern -> pattern.matcher(request.getPath().toString()).matches());
 
 
         if (isPublicRoute){
