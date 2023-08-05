@@ -28,8 +28,6 @@ public class JWTFilter implements GatewayFilter, Ordered {
 
     private final TokenService tokenService = new TokenService();
 
-//    private RotasPublicas rotas = new RotasPublicas();
-
     private final List<Pattern> rotasPublicas = new ArrayList<>();
 
     private final AntPathMatcher pathMatcher = new AntPathMatcher();
@@ -68,7 +66,6 @@ public class JWTFilter implements GatewayFilter, Ordered {
                     .header("usuarioId", tokenService.getId(token))
                     .build();
 
-            // Continuar o encadeamento de filtros com o novo ServerHttpRequest
             return chain.filter(exchange.mutate().request(newRequest).build());
         }
         response.setStatusCode(HttpStatus.UNAUTHORIZED);
