@@ -52,10 +52,6 @@ public class JWTFilter implements GatewayFilter, Ordered {
                 .anyMatch(entry -> pathMatcher.match(entry.getKey(), requestPath) &&
                         entry.getValue().equals(requestMethod));
 
-
-        System.out.println(isPublicRoute);
-
-
         if (isPublicRoute) {
             return chain.filter(exchange);
         }

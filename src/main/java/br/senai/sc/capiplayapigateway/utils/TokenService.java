@@ -29,7 +29,7 @@ public class TokenService {
     }
 
     public String getId(String token) {
-        return JWT.decode(token).getClaims().get("usuarioId").toString();
+        return JWT.decode(token).getClaims().get("usuarioId").toString().replace("\"", "");
     }
 
 
