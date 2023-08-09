@@ -28,16 +28,16 @@ public class JWTFilter implements GatewayFilter, Ordered {
 
     private final TokenService tokenService = new TokenService();
 
-    private final List<Pattern> rotasPublicas = new ArrayList<>();
-
+    private final HashMap<String, HttpMethod> rotasPublicas = new HashMap<>();
     private final AntPathMatcher pathMatcher = new AntPathMatcher();
 
 
-    public JWTFilter() {
-        rotasPublicas.add(Pattern.compile("^/api/usuario/login$"));
-        rotasPublicas.add(Pattern.compile("^/api/usuario/cadastro$"));
-        rotasPublicas.add(Pattern.compile("^/api/video/buscar-completo/.*$"));
 
+    public JWTFilter() {
+        rotasPublicas.put("/api/usuario/login", HttpMethod.POST);
+        rotasPublicas.put("/api/usuario/cadastro", HttpMethod.POST);
+        rotasPublicas.put("/api/video/buscar-completo/**", HttpMethod.GET);
+        rotasPublicas.put("/api/usuario/static/**", HttpMethod.GET);
     }
 
     @Override
@@ -45,12 +45,18 @@ public class JWTFilter implements GatewayFilter, Ordered {
         ServerHttpRequest request =  exchange.getRequest();
         ServerHttpResponse response = exchange.getResponse();
 
+        String requestPath = request.getPath().toString();
+        HttpMethod requestMethod = request.getMethod();
 
-        boolean isPublicRoute = rotasPublicas.stream()
-                .anyMatch(pattern -> pattern.matcher(request.getPath().toString()).matches());
+        boolean isPublicRoute = rotasPublicas.entrySet().stream()
+                .anyMatch(entry -> pathMatcher.match(entry.getKey(), requestPath) &&
+                        entry.getValue().equals(requestMethod));
 
 
-        if (isPublicRoute){
+        System.out.println(isPublicRoute);
+
+
+        if (isPublicRoute) {
             return chain.filter(exchange);
         }
       
