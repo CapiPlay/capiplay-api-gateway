@@ -38,6 +38,8 @@ public class JWTFilter implements GatewayFilter, Ordered {
         rotasPublicas.put("/api/usuario/cadastro", HttpMethod.POST);
         rotasPublicas.put("/api/video/buscar-completo/**", HttpMethod.GET);
         rotasPublicas.put("/api/usuario/static/**", HttpMethod.GET);
+        rotasPublicas.put("/api/video/static/**", HttpMethod.GET);
+        rotasPublicas.put("/api/video/buscar-reels", HttpMethod.GET);
     }
 
     @Override
