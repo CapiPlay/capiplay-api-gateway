@@ -47,6 +47,7 @@ public class JWTFilter implements GatewayFilter, Ordered {
         indefinidas.add(new Rota("/api/video/static/**", HttpMethod.GET));
         indefinidas.add(new Rota("/api/video/buscar-reels", HttpMethod.GET));
         indefinidas.add(new Rota("/api/usuario/anonimo", HttpMethod.POST));
+        indefinidas.add(new Rota("/api/video/buscar-resumido", HttpMethod.GET));
 
         autorizadas.add(new Rota("/api/usuario", HttpMethod.GET));
     }
