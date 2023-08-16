@@ -40,16 +40,47 @@ public class JWTFilter implements GatewayFilter, Ordered {
     }
 
     public JWTFilter() {
+        // ROTAS PÚBLICAS (SEM TOKEN)
+        //Usuario
         indefinidas.add(new Rota("/api/usuario/login", HttpMethod.POST));
         indefinidas.add(new Rota("/api/usuario/cadastro", HttpMethod.POST));
-        indefinidas.add(new Rota("/api/video/buscar-completo/**", HttpMethod.GET));
         indefinidas.add(new Rota("/api/usuario/static/**", HttpMethod.GET));
         indefinidas.add(new Rota("/api/video/static/**", HttpMethod.GET));
-        indefinidas.add(new Rota("/api/video/buscar-reels", HttpMethod.GET));
         indefinidas.add(new Rota("/api/usuario/anonimo", HttpMethod.POST));
-        indefinidas.add(new Rota("/api/video/buscar-resumido", HttpMethod.GET));
+        indefinidas.add(new Rota("/api/video/buscar-videos-canal", HttpMethod.GET));
 
+        // ROTAS QUE PRECISAM DE TOKEN (ANONIMO OU NAO)
+        //Usuario
         autorizadas.add(new Rota("/api/usuario", HttpMethod.GET));
+        //Video
+        autorizadas.add(new Rota("/api/video/criar", HttpMethod.POST));
+        //Engajamento
+        autorizadas.add(new Rota("/api/engajamento/reacaoResposta", HttpMethod.POST));
+        autorizadas.add(new Rota("/api/engajamento/reacaoResposta", HttpMethod.POST));
+        autorizadas.add(new Rota("/api/engajamento/reacaoResposta", HttpMethod.POST));
+        autorizadas.add(new Rota("/api/engajamento/reacaoResposta/buscar-todos-por-resposta", HttpMethod.POST));
+        autorizadas.add(new Rota("/api/engajamento/reacaoComentario", HttpMethod.POST));
+        autorizadas.add(new Rota("/api/engajamento/reacaoComentario", HttpMethod.POST));
+        autorizadas.add(new Rota("/api/engajamento/reacaoComentario/buscar-todos-por-comentario", HttpMethod.POST));
+        autorizadas.add(new Rota("/api/engajamento/reacao", HttpMethod.POST));
+        autorizadas.add(new Rota("/api/engajamento/reacao", HttpMethod.POST));
+        autorizadas.add(new Rota("/api/engajamento/reacao/buscar-todos-por-video", HttpMethod.POST));
+        autorizadas.add(new Rota("/api/engajamento/resposta", HttpMethod.POST));
+        autorizadas.add(new Rota("/api/engajamento/resposta", HttpMethod.POST));
+        autorizadas.add(new Rota("/api/engajamento/resposta", HttpMethod.POST));
+        autorizadas.add(new Rota("/api/engajamento/resposta/buscar-todos-por-comentario", HttpMethod.POST));
+        autorizadas.add(new Rota("/api/engajamento/historico", HttpMethod.POST));
+        autorizadas.add(new Rota("/api/engajamento/historico", HttpMethod.POST));
+        autorizadas.add(new Rota("/api/engajamento/historico/buscar-todos-históricos-por-data", HttpMethod.POST));
+        autorizadas.add(new Rota("/api/engajamento/historico/buscar-todos-históricos-por-usuario", HttpMethod.POST));
+        autorizadas.add(new Rota("/api/engajamento/inscricao", HttpMethod.POST));
+        autorizadas.add(new Rota("/api/engajamento/inscricao", HttpMethod.POST));
+        autorizadas.add(new Rota("/api/engajamento/comentario", HttpMethod.POST));
+        autorizadas.add(new Rota("/api/engajamento/comentario", HttpMethod.POST));
+        autorizadas.add(new Rota("/api/engajamento/comentario", HttpMethod.POST));
+        autorizadas.add(new Rota("/api/engajamento/comentario/buscar-quantidade-respostas", HttpMethod.POST));
+        autorizadas.add(new Rota("/api/engajamento/comentario/buscar-todos-por-data", HttpMethod.POST));
+        autorizadas.add(new Rota("/api/engajamento/comentario/buscar-todos-por-video", HttpMethod.POST));
     }
 
     @Override
