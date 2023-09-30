@@ -71,14 +71,14 @@ public class JWTFilter implements GatewayFilter, Ordered {
         autorizadas.add(new Rota("/api/engajamento/reacao", HttpMethod.GET));
         autorizadas.add(new Rota("/api/engajamento/reacao/buscar-todos-por-video", HttpMethod.GET));
         autorizadas.add(new Rota("/api/engajamento/resposta", HttpMethod.POST));
-        autorizadas.add(new Rota("/api/engajamento/resposta", HttpMethod.GET));
+        autorizadas.add(new Rota("/api/engajamento/resposta/*", HttpMethod.GET));
         autorizadas.add(new Rota("/api/engajamento/resposta", HttpMethod.DELETE));
-        autorizadas.add(new Rota("/api/engajamento/resposta/buscar-todos-por-comentario", HttpMethod.GET));
+        autorizadas.add(new Rota("/api/engajamento/resposta/buscar-todos-por-comentario/**", HttpMethod.GET));
         autorizadas.add(new Rota("/api/engajamento/historico", HttpMethod.POST));
         autorizadas.add(new Rota("/api/engajamento/historico", HttpMethod.GET));
         autorizadas.add(new Rota("/api/engajamento/historico/buscar-todos-históricos-por-data", HttpMethod.GET));
         autorizadas.add(new Rota("/api/engajamento/historico/buscar-todos-históricos-por-usuario", HttpMethod.POST));
-        autorizadas.add(new Rota("/api/engajamento/inscricao", HttpMethod.GET));
+        autorizadas.add(new Rota("/api/engajamento/inscricao/**", HttpMethod.GET));
         autorizadas.add(new Rota("/api/engajamento/inscricao", HttpMethod.POST));
     }
 
