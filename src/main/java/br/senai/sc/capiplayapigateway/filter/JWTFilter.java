@@ -48,6 +48,7 @@ public class JWTFilter implements GatewayFilter, Ordered {
         indefinidas.add(new Rota("/api/video/static/**", HttpMethod.GET));
         indefinidas.add(new Rota("/api/usuario/anonimo", HttpMethod.POST));
         indefinidas.add(new Rota("/api/video/buscar-videos-canal", HttpMethod.GET));
+        indefinidas.add(new Rota("/api/video/buscar-tags", HttpMethod.GET));
 
         // ROTAS QUE PRECISAM DE TOKEN (ANONIMO OU NAO)
         //Usuario
