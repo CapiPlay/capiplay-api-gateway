@@ -81,6 +81,7 @@ public class JWTFilter implements GatewayFilter, Ordered {
         autorizadas.add(new Rota("/api/engajamento/historico/buscar-todos-históricos-por-usuario", HttpMethod.POST));
         autorizadas.add(new Rota("/api/engajamento/inscricao/**", HttpMethod.GET));
         autorizadas.add(new Rota("/api/engajamento/inscricao", HttpMethod.POST));
+        autorizadas.add(new Rota("/api/engajamento/reacaoComentario/**", HttpMethod.GET));
     }
 
     @Override
